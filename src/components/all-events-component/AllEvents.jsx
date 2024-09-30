@@ -3,11 +3,12 @@ import EventCard from '../event-card-component/EventCard';
 import uniq from 'lodash/uniq';
 import CategoryFilter from '../category-filter-component/CategoryFilter';
 import SortDropdown from '../sort-component/SortDropdown';
+import SearchBar from '../search-bar-component/SearchBar';
 
 const AllEvents = ({ events, onSelectEvent, selectedEvents }) => {
 
-     //Getting value of filterCategory from local storage on component render
-     const localFilter = () => {
+    //Getting value of filterCategory from local storage on component render
+    const localFilter = () => {
         const savedFilterCategory = localStorage.getItem("filterCategory");
         return savedFilterCategory || '';
     }
@@ -20,22 +21,26 @@ const AllEvents = ({ events, onSelectEvent, selectedEvents }) => {
 
     const [filterCategory, setFilterCategory] = useState(localFilter());
     const [sortKey, setSortKey] = useState(localSortKey());
+    const [searchQuery, setSearchQuery] = useState('');
+
 
     const filters = uniq(events.map(e => e.event_category));
 
     //Setting value of filter category and sort key to local storage, whenever changing
     useEffect(() => {
-      localStorage.setItem("filterCategory", filterCategory);
-      localStorage.setItem("sortKey", sortKey);
+        localStorage.setItem("filterCategory", filterCategory);
+        localStorage.setItem("sortKey", sortKey);
     }, [filterCategory, sortKey]);
-    
+
     //Syntax for useMemo : useMemo(() => calculatedResult, [...dependencies])
     const filteredEvents = useMemo(() => {
         return events.filter((e) => {
-            if (filterCategory === '') return true; // Show all events if no category is selected
-            return e.event_category === filterCategory;
+            const matchedFilter = filterCategory === '' || e.event_category === filterCategory;
+            const matchedSearchQuery = e.event_name.toLowerCase().includes(searchQuery.toLowerCase());
+            console.log(matchedSearchQuery)
+            return matchedFilter && matchedSearchQuery;
         });
-    }, [filterCategory, events])
+    }, [filterCategory, events, searchQuery])
 
     const sortedEvents = filteredEvents.sort((a, b) => {
         switch (sortKey) {
@@ -54,11 +59,12 @@ const AllEvents = ({ events, onSelectEvent, selectedEvents }) => {
                 <div>
                     <h2>All Events</h2>
                 </div>
-                
+
                 {/* Filter and Sorting dropdowns */}
                 <div style={{ paddingBottom: '20px' }}>
-                    <CategoryFilter filters={filters} filterCategory={filterCategory} onFilterChange={setFilterCategory}  />
+                    <CategoryFilter filters={filters} filterCategory={filterCategory} onFilterChange={setFilterCategory} />
                     <SortDropdown sortKey={sortKey} onSortKeyChange={setSortKey} />
+                    <SearchBar searchQuery={searchQuery} onSearchQueryChange={setSearchQuery}/>
                 </div>
                 <div className="events-list">
                     {

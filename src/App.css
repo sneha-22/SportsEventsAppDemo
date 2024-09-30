@@ -100,3 +100,8 @@ body {
   align-items: center;
   height: 100vh; /* Full height of the viewport */
 }
+
+
+.search-filter {
+  padding-left: 20px;
+}

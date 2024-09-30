@@ -18,6 +18,8 @@ function App() {
   const [selectedEvents, setSelectedEvents] = useState(localSavedEvents());
 
 
+
+
   //Store selected events in local storage, whenever changing
   useEffect(() => {
     localStorage.setItem("selectedEvents", JSON.stringify(selectedEvents));
