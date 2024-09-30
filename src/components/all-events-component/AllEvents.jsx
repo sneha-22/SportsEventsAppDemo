@@ -35,7 +35,7 @@ const AllEvents = ({ events, onSelectEvent, selectedEvents }) => {
     //Syntax for useMemo : useMemo(() => calculatedResult, [...dependencies])
     const filteredEvents = useMemo(() => {
         return events.filter((e) => {
-            const matchedFilter = e.event_category === '' || e.event_category === filterCategory;
+            const matchedFilter = filterCategory === '' || e.event_category === filterCategory;
             const matchedSearchQuery = e.event_name.toLowerCase().includes(searchQuery.toLowerCase());            return matchedFilter && matchedSearchQuery;
         });
     }, [filterCategory, events, searchQuery])
