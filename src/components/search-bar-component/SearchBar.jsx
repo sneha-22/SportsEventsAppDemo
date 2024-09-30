@@ -1,7 +1,6 @@
 import React from 'react'
 
 const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
-    console.log('here')
     return (
         <>
             <span style={{paddingLeft:'20px'}}>

@@ -12,11 +12,11 @@ jest.mock('../event-card-component/EventCard', () => {
 
 describe('AllEvents Component', () => {
     const mockEvents = [
-        { id: 1, event_name: 'Event 1', event_category: 'Sports' },
+        { id: 1, event_name: 'Event 1', event_category: 'Track' },
     ];
     const mockOnSelectEvent = jest.fn();
     const mockSelectedEvents = [
-        { id: 2, event_name: 'Event 2', event_category: 'Sports' },
+        { id: 2, event_name: 'Event 2', event_category: 'Field' },
         {}
     ];
 
