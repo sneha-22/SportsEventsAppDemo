@@ -1,35 +1,100 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useMemo, useState } from 'react';
+import './App.css';
+import AllEvents from './components/all-events-component/AllEvents';
+import SelectedEvents from './components/selected-events-component/SelectedEvents';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // Load saved events from localStorage on initial render
+  const localSavedEvents = () => {
+    const savedEvents = localStorage.getItem("selectedEvents");
+    return savedEvents ? JSON.parse(savedEvents) : []
+  }
+
+  const API_URL = 'https://run.mocky.io/v3/d1b4d3f6-d64d-467f-a85d-a17679dcd65f';
+  const [loading, setLoading] = useState(true);
+  const [allEvents, setAllEvents] = useState([]);
+  const [selectedEvents, setSelectedEvents] = useState(localSavedEvents());
+
+
+  //Store selected events in local storage, whenever changing
+  useEffect(() => {
+    localStorage.setItem("selectedEvents", JSON.stringify(selectedEvents));
+  }, [selectedEvents]);
+
+  useEffect(() => {
+    setLoading(true); // Set loading to true before API call
+    fetch(API_URL)
+      .then((response) => response.json())
+      .then((data) => {
+        setAllEvents(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, [])
+
+  const hasClashingEvents = useMemo(() => {
+    return (newEvent) => {
+      return selectedEvents.some(e => {
+        const newEventStart = new Date(newEvent.start_time);
+        const newEventEnd = new Date(newEvent.end_time);     // Parsing date strings to Date objects
+
+        const eventStart = new Date(e.start_time);
+        const eventEnd = new Date(e.end_time);
+
+        // Check if the new event overlaps with any existing event
+        return (newEventStart < eventEnd && newEventEnd > eventStart)
+
+      });
+    }
+
+  }, [selectedEvents])
+
+  const handleSelectEvent = (_event) => {
+    if (selectedEvents.length >= 3) {
+      alert('You have reached maximum number of events.');
+      return;
+    }
+    if (hasClashingEvents(_event)) {
+      alert('You already have an event in this slot.');
+      return;
+    }
+    setSelectedEvents([...selectedEvents, _event])
+  }
+
+  const handleDeselectEvent = (_event) => {
+    const updatedSelectedEvents = selectedEvents.filter(e => e.id !== _event.id);
+    setSelectedEvents(updatedSelectedEvents);
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='app-title'>
+        <h1>Sports Events Registration</h1>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="app-container">
+        <div className="box events-container">
+          {
+            loading ? (
+              <div className="spinner-container">
+                <ClipLoader color="#09f" loading={loading} size={50} />
+                <span>Loading events...</span>
+              </div>
+            ) : 
+              <AllEvents events={allEvents} onSelectEvent={handleSelectEvent} selectedEvents={selectedEvents} />
+          }
+        </div>
+        <div className="box selected-events-container">
+          <SelectedEvents events={selectedEvents} onDeselectEvent={handleDeselectEvent} />
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+
+  );
 }
 
-export default App
+export default App;
