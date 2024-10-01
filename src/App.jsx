@@ -37,7 +37,7 @@ function App() {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, [])
+  }, []) // empty dependency array because api call needed only for first render of component
 
   const hasClashingEvents = useMemo(() => {
     return (newEvent) => {
