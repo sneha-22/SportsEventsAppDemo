@@ -19,9 +19,15 @@ const AllEvents = ({ events, onSelectEvent, selectedEvents }) => {
         return savedSortKey || 'date';
     }
 
+    //Getting value of searchQuery from localStorage on component render
+    const localSearchQuery = () => {
+        const savedSearchQuery = localStorage.getItem("searchQuery");
+        return savedSearchQuery || '';
+    }
+
     const [filterCategory, setFilterCategory] = useState(localFilter());
     const [sortKey, setSortKey] = useState(localSortKey());
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState(localSearchQuery());
 
 
     const filters = uniq(events.map(e => e.event_category));
@@ -30,7 +36,8 @@ const AllEvents = ({ events, onSelectEvent, selectedEvents }) => {
     useEffect(() => {
         localStorage.setItem("filterCategory", filterCategory);
         localStorage.setItem("sortKey", sortKey);
-    }, [filterCategory, sortKey]);
+        localStorage.setItem("searchQuery", searchQuery);
+    }, [filterCategory, sortKey, searchQuery]);
 
     //Syntax for useMemo : useMemo(() => calculatedResult, [...dependencies])
     const filteredEvents = useMemo(() => {
