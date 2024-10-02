@@ -26,17 +26,17 @@ describe('AllEvents Component', () => {
 
     });
 
-    test('renders the title', () => {
+    it('renders the title', () => {
         render(<AllEvents events={mockEvents} onSelectEvent={mockOnSelectEvent} selectedEvents={mockSelectedEvents} />);
         expect(screen.getByText(/All Events/i)).toBeInTheDocument();
     });
 
-    test('renders the correct number of EventCard components', () => {
+    it('renders the correct number of EventCard components', () => {
         render(<AllEvents events={mockEvents} onSelectEvent={mockOnSelectEvent} selectedEvents={mockSelectedEvents}/>);
         expect(EventCard).toHaveBeenCalledTimes(mockEvents.length);
     });
 
-    test('passes correct props to EventCard', () => {
+    it('passes correct props to EventCard', () => {
         render(<AllEvents events={mockEvents} selectedEvents={mockSelectedEvents} onSelectEvent={mockOnSelectEvent} isSelected={false} />);
         mockEvents.forEach((event) => {
             expect(EventCard).toHaveBeenCalledWith(
@@ -51,17 +51,17 @@ describe('AllEvents Component', () => {
         });
     });
 
-    test('does not render EventCard if no events are provided', () => {
+    it('does not render EventCard if no events are provided', () => {
         render(<AllEvents events={[]} onSelectEvent={mockOnSelectEvent} selectedEvents={mockSelectedEvents} />);
         expect(EventCard).not.toHaveBeenCalled();
     });
 
-    test('should render filter dropdown', () => {
+    it('should render filter dropdown', () => {
         render(<AllEvents events={mockEvents} onSelectEvent={mockOnSelectEvent} selectedEvents={[]}/>)
         expect(screen.getByText(/Filter :/i));
     });
 
-    test('should render sort by dropdown', () => {
+    it('should render sort by dropdown', () => {
         render(<AllEvents events={mockEvents} onSelectEvent={mockOnSelectEvent} selectedEvents={[]}/>)
         expect(screen.getByText(/Sort by :/i));
     });

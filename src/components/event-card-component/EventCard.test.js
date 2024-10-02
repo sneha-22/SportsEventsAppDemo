@@ -19,7 +19,7 @@ describe('EventCard Component', () => {
   });
 
 
-  test('should render event card with details', () => {
+  it('should render event card with details', () => {
     render(<EventCard event={mockEvent}/>);
     
     expect(screen.getByText(/Sample Event/i)).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('EventCard Component', () => {
     expect(screen.getByText(/Jan 1, 2024/i)).toBeInTheDocument();
   });
 
-  test('should call onSelectEvent when "Select" button is clicked', () => {
+  it('should call onSelectEvent when "Select" button is clicked', () => {
     render(<EventCard event={mockEvent} onSelectEvent={mockonSelect} isSelected={false} isSelectedView={false}/>);
 
     const selectBtn = screen.getByRole('button', {name: /Select/i});
@@ -35,7 +35,7 @@ describe('EventCard Component', () => {
     expect(mockonSelect).toHaveBeenCalledWith(mockEvent);
   });
 
-  test('should call onDeselectEvent when "Remove" button is clicked', () => {
+  it('should call onDeselectEvent when "Remove" button is clicked', () => {
     render(<EventCard event={mockEvent} onDeselectEvent={mockonDeselect} isSelected={true} isSelectedView={true}/>);
     
     const selectBtn = screen.getByRole('button', {name: /Remove/i});
@@ -44,7 +44,7 @@ describe('EventCard Component', () => {
   });
 
   
-  test('should disable Select btn when card is already selected', () => {
+  it('should disable Select btn when card is already selected', () => {
     render(<EventCard event={mockEvent} onDeselectEvent={mockonSelect} isSelected={true} isSelectedView={false}/>);
     
     const selectBtn = screen.getByRole('button', {name: /Select/i});

@@ -10,7 +10,7 @@ describe.only('SortDropdown Component', () => {
         jest.clearAllMocks(); // Clear mock function calls before each test
     });
 
-    test('should render dropdown with default value date', () => {
+    it('should render dropdown with default value date', () => {
         render(<SortDropdown sortKey='date' onSortKeyChange={mockOnSortKeyChange} />);
 
         expect(screen.getByLabelText(/Sort by :/i)).toBeInTheDocument();
