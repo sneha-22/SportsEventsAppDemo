@@ -1,8 +1,59 @@
 /* src/App.css */
 
+
+/* Default light mode styles */
 body {
   max-width: 93%;
+  background-color: white; /* Default light background */
+  color: black; /* Default light text color */
 }
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+  }
+
+  .event-card,
+  .selected-event-card {
+    background-color: #1e1e1e; /* Dark mode card background */
+    border: 1px solid #555; /* Lighter border in dark mode */
+  }
+
+  .selected {
+    background-color: #37474f; /* Darker tone for selected events */
+  }
+
+  .box {
+    background-color: #1e1e1e; /* Dark background for box */
+    border: 2px solid #555; /* Lighter border for dark mode */
+  }
+
+  .sort-by,
+  .search-filter {
+    color: #e0e0e0; /* Lighter text in search and sort */
+  }
+
+  .btn-container button,
+  .btn-container-selected button {
+    background-color: #333; /* Dark button background */
+    color: #e0e0e0; /* Light button text */
+    border: 1px solid #777; /* Lighter button border */
+  }
+
+  .app-title {
+    color: #e0e0e0; /* Light text for the title */
+  }
+
+  .spinner-container {
+    background-color: #121212; /* Dark background for spinner screen */
+  }
+}
+
+/* body {
+  max-width: 93%;
+} */
 #root {
   width: 90%;
   flex-wrap: wrap;
