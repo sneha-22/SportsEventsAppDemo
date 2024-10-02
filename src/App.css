@@ -9,48 +9,56 @@ body {
 }
 
 /* Dark mode styles */
+/* Dark mode styles */
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #121212; /* Dark background */
-    color: #e0e0e0; /* Light text color */
+    background-color: black; /* Fully black background */
+    color: #f5f5f5; /* Light text */
+  }
+
+  .app-container {
+    background-color: black; /* Black background for containers */
   }
 
   .event-card,
   .selected-event-card {
-    background-color: #1e1e1e; /* Dark mode card background */
-    border: 1px solid #555; /* Lighter border in dark mode */
+    background-color: #333; /* Dark card background */
+    border: 1px solid #777; /* Light borders */
+    color: #f5f5f5; /* Light text inside cards */
   }
 
   .selected {
-    background-color: #37474f; /* Darker tone for selected events */
+    background-color: #555; /* Darker background for selected events */
+    border: 1px solid #999; /* Light border for selected */
   }
 
   .box {
-    background-color: #1e1e1e; /* Dark background for box */
-    border: 2px solid #555; /* Lighter border for dark mode */
-  }
-
-  .sort-by,
-  .search-filter {
-    color: #e0e0e0; /* Lighter text in search and sort */
+    background-color: #333; /* Dark background for boxes */
+    border: 2px solid #777; /* Light border */
+    color: #f5f5f5; /* Light text */
   }
 
   .btn-container button,
   .btn-container-selected button {
-    background-color: #333; /* Dark button background */
-    color: #e0e0e0; /* Light button text */
-    border: 1px solid #777; /* Lighter button border */
+    background-color: #444; /* Dark background for buttons */
+    color: #f5f5f5; /* Light text for buttons */
+    border: 1px solid #777; /* Light borders for buttons */
+  }
+
+  .sort-by,
+  .search-filter {
+    color: #f5f5f5; /* Light text for search and sort inputs */
   }
 
   .app-title {
-    color: #e0e0e0; /* Light text for the title */
+    color: #f5f5f5; /* Light title text */
   }
 
   .spinner-container {
-    background-color: #121212; /* Dark background for spinner screen */
+    background-color: black; /* Black background for spinner */
+    color: #f5f5f5; /* Light text for spinner */
   }
 }
-
 /* body {
   max-width: 93%;
 } */
