@@ -8,8 +8,8 @@ const CategoryFilter = ({filters, filterCategory, onFilterChange }) => {
                 <select value={filterCategory} onChange={(e) => onFilterChange(e.target.value)}>
                     <option value=''>All</option>
                     {
-                        filters.map(filter => (
-                            <option key={filter} value={filter}>{filter}</option>
+                        filters.map((filter, index) => (
+                            <option key={index} value={filter}>{filter}</option>
                         ))
                     }
                 </select>

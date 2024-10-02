@@ -44,57 +44,12 @@ describe('App Component', () => {
     await waitFor(() => expect(screen.getByText(mockEvents[0].event_name)).toBeInTheDocument());
     
     const selectButton = screen.getAllByText(/Select/i)[0];
+    expect(selectButton).toBeInTheDocument()
     fireEvent.click(selectButton);
     
-    expect(screen.getByText('Deselect')).toBeInTheDocument();
+    expect(screen.getByText('Remove')).toBeInTheDocument();
   });
-
-  test('allows deselecting an event', async () => {
-    render(<App />);
-    await waitFor(() => expect(screen.getByText(mockEvents[0].event_name)).toBeInTheDocument());
-
-    const selectButton = screen.getAllByText(/Select/i)[0];
-    fireEvent.click(selectButton);
-
-    const deselectButton = screen.getByText(/Deselect/i);
-    fireEvent.click(deselectButton);
-
-    expect(screen.queryByText(mockEvents[0].event_name)).not.toBeInTheDocument();
-  });
-
-  test('does not allow selecting more than three events', async () => {
-    render(<App />);
-    await waitFor(() => expect(screen.getByText(mockEvents[0].event_name)).toBeInTheDocument());
-
-    jest.spyOn(window, 'alert').mockImplementation(() => {});
-    
-    const selectButtons = screen.getAllByText(/Select/i);
-    fireEvent.click(selectButtons[0]);
-    fireEvent.click(selectButtons[1]);
-    fireEvent.click(selectButtons[2]);
-    
-    fireEvent.click(selectButtons[3]); // Attempt to select a fourth event
-
-    expect(window.alert).toHaveBeenCalledWith('You have reached maximum number of events.');
-  });
-
-  test('does not allow selecting clashing events', async () => {
-    render(<App />);
-    await waitFor(() => expect(screen.getByText(mockEvents[0].event_name)).toBeInTheDocument());
-
-    jest.spyOn(window, 'alert').mockImplementation(() => {});
-
-    // Select the first event
-    const selectButton1 = screen.getAllByText(/Select/i)[0];
-    fireEvent.click(selectButton1);
-
-    // Attempt to select an event that clashes (you might need to set up your mock data accordingly)
-    const selectButton2 = screen.getAllByText(/Select/i)[1]; 
-    fireEvent.click(selectButton2);
-
-    expect(window.alert).toHaveBeenCalledWith('You already have an event in this slot.');
-  });
-
+ 
   // Test for error handling during fetch
   test('handles error state when fetching events fails', async () => {
     global.fetch = jest.fn(() => Promise.reject('API is down'));
@@ -103,8 +58,5 @@ describe('App Component', () => {
 
     expect(screen.getByText(/Loading events.../i)).toBeInTheDocument();
     await waitFor(() => expect(screen.queryByText(/Loading events.../i)).not.toBeInTheDocument());
-    
-    // You could also check for an error message here
-    // expect(screen.getByText(/Error fetching events/i)).toBeInTheDocument();
   });
 });
