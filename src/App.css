@@ -15,11 +15,17 @@ body {
       color: white; /* Dark text color */
   }
 
+  .box,
+  .events-container,
+  .selected-events-container {
+    background-color: #222222;
+  }
   /* Add more dark mode styles for other elements as needed */
   .event-card,
   .selected-event-card {
       background-color: #222222;
       color: #ccc;
+      border-color: white;
   }
 
   .event-card button,
