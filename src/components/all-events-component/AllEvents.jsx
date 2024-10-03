@@ -28,9 +28,19 @@ const AllEvents = ({ events, onSelectEvent, selectedEvents }) => {
     const [filterCategory, setFilterCategory] = useState(localFilter());
     const [sortKey, setSortKey] = useState(localSortKey());
     const [searchQuery, setSearchQuery] = useState(localSearchQuery());
-
+    const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
 
     const filters = uniq(events.map(e => e.event_category));
+
+    //debouncing search query input
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearchQuery(searchQuery);
+        }, 300); //300 ms delay
+        return () => {
+            clearTimeout(handler);
+        }
+    }, [searchQuery]);
 
     //Setting value of filter category and sort key to local storage, whenever changing
     useEffect(() => {
@@ -45,7 +55,7 @@ const AllEvents = ({ events, onSelectEvent, selectedEvents }) => {
             const matchedFilter = filterCategory === '' || e.event_category === filterCategory;
             const matchedSearchQuery = e.event_name.toLowerCase().includes(searchQuery.toLowerCase());            return matchedFilter && matchedSearchQuery;
         });
-    }, [filterCategory, events, searchQuery])
+    }, [filterCategory, events, debouncedSearchQuery])
 
     const sortedEvents = filteredEvents.sort((a, b) => {
         switch (sortKey) {

@@ -28,23 +28,23 @@ describe('SelectedEvents Component', () => {
 
     });
 
-    test('renders the title', () => {
+    it('renders the title', () => {
         render(<SelectedEvents events={mockSelectedEvents} onDeselectEvent={mockOnDeselectEvent}/>);
         expect(screen.getByText(/Selected Events/i)).toBeInTheDocument();
     });
 
-    test('renders the number of selected events', () => {
+    it('renders the number of selected events', () => {
         render(<SelectedEvents events={mockSelectedEvents} onDeselectEvent={mockOnDeselectEvent}/>);
         expect(screen.getByText(/1/i)).toBeInTheDocument();
     });
 
 
-    test('renders the correct number of EventCard components', () => {
+    it('renders the correct number of EventCard components', () => {
         render(<SelectedEvents events={mockSelectedEvents} onDeselectEvent={mockOnDeselectEvent} />);
         expect(EventCard).toHaveBeenCalledTimes(mockSelectedEvents.length);
     });
 
-    test('passes correct props to EventCard', () => {
+    it('passes correct props to EventCard', () => {
         render(<SelectedEvents events={mockSelectedEvents} onDeselectEvent={mockOnDeselectEvent}/>);
         mockSelectedEvents.forEach((event) => {
             expect(EventCard).toHaveBeenCalledWith(
@@ -60,12 +60,12 @@ describe('SelectedEvents Component', () => {
         });
     });
 
-    test('does not render EventCard if no events are selected', () => {
+    it('does not render EventCard if no events are selected', () => {
         render(<SelectedEvents events={[]} onDeselectEvent={mockOnDeselectEvent}/>);
         expect(EventCard).not.toHaveBeenCalled();
     });
 
-    test('should render message if no events are selected', () => {
+    it('should render message if no events are selected', () => {
         render(<SelectedEvents events={[]} onDeselectEvent={mockOnDeselectEvent}/>);
         expect(screen.getByText(/No events selected./i)).toBeInTheDocument();
     });
