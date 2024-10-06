@@ -6,7 +6,7 @@ import '@testing-library/jest-dom'; // Import jest-dom matchers
 
 
 describe('SearchBar Component', () => {
-    it('renders correctly with the initial search query', () => {
+    it('should render correctly with the initial search query', () => {
         const mockOnSearchQueryChange = jest.fn();
         render(<SearchBar searchQuery="test" onSearchQueryChange={mockOnSearchQueryChange} />);
         
@@ -15,7 +15,7 @@ describe('SearchBar Component', () => {
         expect(inputElement).toHaveValue('test');
     });
 
-    it('calls onSearchQueryChange with the correct value when typing', () => {
+    it('should call onSearchQueryChange with the correct value when typing', () => {
         const mockOnSearchQueryChange = jest.fn();
         render(<SearchBar searchQuery="" onSearchQueryChange={mockOnSearchQueryChange} />);
         

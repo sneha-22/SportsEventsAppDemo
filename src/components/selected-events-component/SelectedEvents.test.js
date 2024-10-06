@@ -11,9 +11,7 @@ jest.mock('../event-card-component/EventCard', () => {
 });
 
 describe('SelectedEvents Component', () => {
-    const mockEvents = [
-        { id: 2, event_name: 'Event 2', event_category: 'Sports' },
-    ];
+
     const mockSelectedEvents = [
         { id: 1, event_name: 'Event 2', event_category: 'Sports' },
 
@@ -28,23 +26,23 @@ describe('SelectedEvents Component', () => {
 
     });
 
-    it('renders the title', () => {
+    it('should render the title', () => {
         render(<SelectedEvents events={mockSelectedEvents} onDeselectEvent={mockOnDeselectEvent}/>);
         expect(screen.getByText(/Selected Events/i)).toBeInTheDocument();
     });
 
-    it('renders the number of selected events', () => {
+    it('should render the number of selected events', () => {
         render(<SelectedEvents events={mockSelectedEvents} onDeselectEvent={mockOnDeselectEvent}/>);
         expect(screen.getByText(/1/i)).toBeInTheDocument();
     });
 
 
-    it('renders the correct number of EventCard components', () => {
+    it('should render the correct number of EventCard components', () => {
         render(<SelectedEvents events={mockSelectedEvents} onDeselectEvent={mockOnDeselectEvent} />);
         expect(EventCard).toHaveBeenCalledTimes(mockSelectedEvents.length);
     });
 
-    it('passes correct props to EventCard', () => {
+    it('should pass correct props to EventCard', () => {
         render(<SelectedEvents events={mockSelectedEvents} onDeselectEvent={mockOnDeselectEvent}/>);
         mockSelectedEvents.forEach((event) => {
             expect(EventCard).toHaveBeenCalledWith(
@@ -60,7 +58,7 @@ describe('SelectedEvents Component', () => {
         });
     });
 
-    it('does not render EventCard if no events are selected', () => {
+    it('should not render EventCard if no events are selected', () => {
         render(<SelectedEvents events={[]} onDeselectEvent={mockOnDeselectEvent}/>);
         expect(EventCard).not.toHaveBeenCalled();
     });

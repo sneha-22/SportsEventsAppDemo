@@ -24,13 +24,13 @@ afterEach(() => {
 
 describe('App Component', () => {
   
-  it('displays loading spinner while fetching events', async () => {
+  it('it should display loading spinner while fetching events', async () => {
     render(<App />);
     expect(screen.getByText(/Loading events.../i)).toBeInTheDocument();
     await waitFor(() => expect(screen.queryByText(/Loading events.../i)).not.toBeInTheDocument());
   });
 
-  it('renders events after fetch', async () => {
+  it('it should render events after fetch', async () => {
     render(<App />);
     await waitFor(() => {
       mockEvents.forEach(event => {
@@ -39,7 +39,7 @@ describe('App Component', () => {
     });
   });
 
-  it('allows selecting an event', async () => {
+  it('should allow selecting an event', async () => {
     render(<App />);
     await waitFor(() => expect(screen.getByText(mockEvents[0].event_name)).toBeInTheDocument());
     
@@ -49,9 +49,8 @@ describe('App Component', () => {
     
     expect(screen.getByText('Remove')).toBeInTheDocument();
   });
- 
-  // Test for error handling during fetch
-  it('handles error state when fetching events fails', async () => {
+
+  it('should handle error state when fetching events fails', async () => {
     global.fetch = jest.fn(() => Promise.reject('API is down'));
 
     render(<App />);
