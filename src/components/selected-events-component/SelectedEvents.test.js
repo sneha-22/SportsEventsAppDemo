@@ -4,7 +4,6 @@ import SelectedEvents from './SelectedEvents';
 import EventCard from '../event-card-component/EventCard';
 import '@testing-library/jest-dom'; // Import jest-dom matchers
 
-
 // Mock EventCard component
 jest.mock('../event-card-component/EventCard', () => {
     return jest.fn(() => <div>Mock EventCard</div>);
@@ -14,16 +13,11 @@ describe('SelectedEvents Component', () => {
 
     const mockSelectedEvents = [
         { id: 1, event_name: 'Event 2', event_category: 'Sports' },
-
     ];
 
     const mockOnDeselectEvent = jest.fn();
-
-
     beforeEach(() => {
-        // Clear the mock before each test
-        EventCard.mockClear();
-
+        jest.clearAllMocks();
     });
 
     it('should render the title', () => {
