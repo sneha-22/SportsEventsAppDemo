@@ -18,7 +18,6 @@ describe('EventCard Component', () => {
     jest.clearAllMocks(); // Clear mock function calls before each test
   });
 
-
   it('should render event card with details', () => {
     render(<EventCard event={mockEvent}/>);
     
@@ -43,7 +42,6 @@ describe('EventCard Component', () => {
     expect(mockonDeselect).toHaveBeenCalledWith(mockEvent);
   });
 
-  
   it('should disable Select btn when card is already selected', () => {
     render(<EventCard event={mockEvent} onDeselectEvent={mockonSelect} isSelected={true} isSelectedView={false}/>);
     

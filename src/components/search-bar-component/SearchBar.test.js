@@ -4,10 +4,14 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import SearchBar from './SearchBar';
 import '@testing-library/jest-dom'; // Import jest-dom matchers
 
-
 describe('SearchBar Component', () => {
+    const mockOnSearchQueryChange = jest.fn();
+    
+    beforeEach(() => {
+        jest.clearAllMocks();
+    })
     it('should render correctly with the initial search query', () => {
-        const mockOnSearchQueryChange = jest.fn();
+        // const mockOnSearchQueryChange = jest.fn();
         render(<SearchBar searchQuery="test" onSearchQueryChange={mockOnSearchQueryChange} />);
         
         const inputElement = screen.getByPlaceholderText(/search events.../i);
@@ -16,7 +20,7 @@ describe('SearchBar Component', () => {
     });
 
     it('should call onSearchQueryChange with the correct value when typing', () => {
-        const mockOnSearchQueryChange = jest.fn();
+        // const mockOnSearchQueryChange = jest.fn();
         render(<SearchBar searchQuery="" onSearchQueryChange={mockOnSearchQueryChange} />);
         
         const inputElement = screen.getByPlaceholderText(/search events.../i);

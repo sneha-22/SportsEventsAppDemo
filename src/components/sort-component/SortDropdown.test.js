@@ -19,7 +19,7 @@ describe.only('SortDropdown Component', () => {
         expect(screen.getByText(/Name/i)).toBeInTheDocument();
     });
 
-    test('should change dropdown value when changed', () => {
+    it('should change dropdown value when changed', () => {
         render(<SortDropdown sortKey='date' onSortKeyChange={mockOnSortKeyChange} />);
         const dropdownElement = screen.getByLabelText(/Sort by :/i);
         expect(dropdownElement).toHaveValue('date');

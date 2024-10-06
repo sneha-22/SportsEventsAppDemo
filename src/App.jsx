@@ -23,7 +23,7 @@ function App() {
   }, [selectedEvents]);
 
   useEffect(() => {
-    setLoading(true); // Set loading to true before API call
+    setLoading(true);
     fetch(API_URL)
       .then((response) => response.json())
       .then((data) => {

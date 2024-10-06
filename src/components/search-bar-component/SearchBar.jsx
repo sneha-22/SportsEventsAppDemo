@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
     return (
@@ -7,12 +7,9 @@ const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
                 <label>Search for events :</label>
                 <span style={{paddingLeft:'10px'}}>
                 <input type='text' value={searchQuery} onChange={(e) => onSearchQueryChange(e.target.value)} placeholder='Search Events ...' />
-
                 </span>
-
             </span>
         </>
-
     )
 }
 
