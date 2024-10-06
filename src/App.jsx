@@ -30,8 +30,7 @@ function App() {
         setAllEvents(data);
         setLoading(false);
       })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
+      .catch(() => {
         setLoading(false);
       });
   }, []) // empty dependency array because api call needed only for first render of component
